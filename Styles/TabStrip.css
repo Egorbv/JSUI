@@ -1,0 +1,202 @@
+﻿/*Общие классы*/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*Основной класс для главного контейнера TabStrip*/
+.jsui-tab-strip {
+	position:relative;
+}
+
+/*Класс для тега ul в котором находяться описание вкладок таба*/
+.jsui-tab-strip > ul {
+	margin:0px;
+	padding:0px;
+	padding-left:10px; /*Отступ слева для начала отображения вкладок*/
+	padding-right:30px;
+	overflow:hidden;
+	white-space:nowrap;
+}
+
+/*Клас для заголовка таба*/
+.jsui-tab-strip > ul > li {
+	list-style-type:none;
+	display:inline-block;
+	cursor:default;
+	padding:5px;
+	margin:0px;
+	border:1px solid;
+	margin-left:-1px;
+	border-radius:5px 5px 0 0;
+
+	white-space:nowrap;
+	vertical-align:middle;
+
+	display:inline-table;
+}
+
+.jsui-tab-strip > ul > li > img {
+	margin-top:3px;
+}
+.jsui-tab-strip > ul > li > span {
+	vertical-align:bottom;
+	display:table-cell;
+	padding-left:5px;
+}
+
+/*Класс для заголовка таба находящегося под мышью*/
+.jsui-tab-strip > ul > li:hover {
+	background-color:#EFEFEF;
+}
+
+/*Класс для активного в данный момент заголовка таба*/
+.jsui-tab-strip > ul > li.jsui-selected {
+	border-bottom:1px solid white;
+}
+
+/*Класс для контейнера отображающего содержимое контента вкладки таба*/
+.jsui-tab-strip-content {
+	visibility:visible;
+	display:block;
+	border-radius:0 0 5px 5px;
+	border:1px solid;
+	border-top:0px; /***/
+	box-sizing:border-box;
+	padding:5px;
+}
+
+/*Класс для линии внизу заголовков табов*/
+.jsui-tab-strip-line {
+	height:3px;
+	background-color:white;
+	display:block;
+	border:1px solid;
+	border-radius:5px 5px 0 0;
+	margin-top:-1px;
+}
+
+
+.jsui-tab-strip-list-button {
+	position:absolute;
+	border-radius:5px;
+	right:3px;
+	bottom:3px;
+	height:10px;
+	width:26px;
+	box-sizing:border-box;
+	border:1px solid transparent;
+	margin:0px;
+	padding:0px;
+	line-height:2px;
+}
+
+.jsui-tab-strip-list-button:hover {
+	border:1px solid #EDCECE;
+}
+
+.jsui-tab-strip-list-button > span {
+	display:inline-block;
+	width:4px;
+	height:4px;
+	margin:0px;
+	padding:0px;
+	margin-left:3px;
+}
+
+
+
+
+
+/*Классы для работы в режиме - jsui-mode2*/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+.jsui-tab-strip.jsui-mode2 .jsui-tab-strip-content{
+	border-radius:5px 5px 5px 5px;
+	border-top:1px solid;
+}
+
+.jsui-tab-strip.jsui-mode2 > ul > li {
+	/*Убираем нижний бордер*/
+	border-bottom:0px;
+}
+
+
+
+/*Классы для работы в режиме - jsui-mode3*/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+.jsui-tab-strip.jsui-mode3 > ul {
+	padding-top:5px;
+	border-radius:5px 5px 0 0;
+}
+
+.jsui-tab-strip.jsui-mode3 .jsui-tab-strip-line {
+	border-radius:0px;
+}
+
+
+/*Классы для работы в режиме - jsui-mode4*/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+.jsui-tab-strip.jsui-mode4 .jsui-tab-strip-content {
+	border-radius:0 0 5px 5px;
+	border-top:1px solid;
+}
+.jsui-tab-strip.jsui-mode4 > ul > li {
+	border-bottom:0px;
+}
+
+.jsui-tab-strip.jsui-mode4 > ul {
+	padding-top:5px;
+	border-radius:5px 5px 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*Цвет бордюров для рамок вокруг (заголовков вкладок, контейнера для вкладки, линия по заголовками вкладок)*/
+.jsui-tab-strip > ul > li, .jsui-tab-strip-content, .jsui-tab-strip-line, .jsui-tab-strip.jsui-mode2 .jsui-tab-strip-content,
+.jsui-tab-strip.jsui-mode4 .jsui-tab-strip-content {
+	border-color:lightgrey;
+}
+
+/*Фон для неактивного заголовка вкладки*/
+.jsui-tab-strip > ul > li {
+	background-color:#E2E2E2;
+}
+
+/*Фон активной вкладки, кнопки показа скрытых вкладок*/
+.jsui-tab-strip-list-button, .jsui-tab-strip > ul > li.jsui-selected {
+	background-color:white;
+}
+
+/*Цвет для фона - (контейнера для вкладок, точек в кнопке показа списка скрытых вкладок)*/
+.jsui-tab-strip.jsui-mode3 > ul, .jsui-tab-strip.jsui-mode4 > ul, .jsui-tab-strip-list-button > span {
+	background-color:#B5B5B5;	
+}

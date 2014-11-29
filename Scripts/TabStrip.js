@@ -114,8 +114,10 @@ function TabStrip(settings) {
 	//Обработчик клика на кнопке показа скрытых вкладок
 	listButton.bind("click", function () {
 		if (tabListBox == null) {
-			tabListBox = new DropDownContent({ verticalAlign: "bottom", horizontAlign: "right" });
+			tabListBox = new DropDownContent({ width:"auto", verticalAlign: "bottom", horizontAlign: "right" });
 		}
+		tabListBox.Content.style.width = "835px";
+		tabListBox.Content.style.height = "500px";
 		tabListBox.Show(this);
 	});
 }

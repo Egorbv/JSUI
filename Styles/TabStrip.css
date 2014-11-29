@@ -89,6 +89,7 @@
 	margin:0px;
 	padding:0px;
 	line-height:2px;
+    box-sizing:border-box;
 }
 
 .jsui-tab-strip-list-button:hover {

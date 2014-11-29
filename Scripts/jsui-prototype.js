@@ -96,9 +96,9 @@ HTMLElement.prototype.bind = function (ev, func) {
 
 
 HTMLElement.prototype.absCoords = function () {
-	if (this.getBoundingClientRect) {
-		var data = this.getBoundingClientRect();
-		return { left: data.left, top: data.top, width: data.width, height: data.height };
+    if (this.getBoundingClientRect) {
+	    var data = this.getBoundingClientRect();
+	    return { left: data.left + window.scrollPosX(), top: data.top, width: data.width, height: data.height };
 	}
 	var el = this;
 	var top = el.offsetTop;
@@ -115,7 +115,9 @@ HTMLElement.prototype.absCoords = function () {
 
 
 
-
+Window.prototype.scrollPosX = function () {
+    return window.pageXOffset ? window.pageXOffset : window.scrollX;
+}
 
 Window.prototype.bind = function (ev, func) {
 	if (this.attachEvent) {

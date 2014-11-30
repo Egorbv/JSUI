@@ -1,32 +1,35 @@
 ﻿function DropDownContent(settings) {
 	if (settings == null) {
-		new JSUIException("Не заданы настройки");
+		new JSUIException("Не заданы настройки", this);
 	}
 
+	var self = this;
+	var currentEvent = null;
 	var container = document.createElement("div");
 	container.className = "jsui-drop-down-content"
 
 	this.Content = document.createElement("div");
 	container.append(this.Content);
 	document.body.append(container);
-	var currentEvent = null;
 
 	this.Hide = function () {
 		window.unbind("click", onWindowClick);
 		window.unbind("resize", onWindowResize);
-		container.hide();
+		container.css({ display: "none", visibility : "hidden", width: "0px", height: "0px", overflow: "hidden" });
 	}
 
 	this.Show = function (args) {
 	    currentEvent = event;//возможно нужно останавливать событие
-	    container.css({ display: "block", width:"0px" });
+	    container.css({ display: "block", width:"0px", height:"0px", overflow :"hidden" });
 	    if (args.tagName) {
 	        var oldPoint = args.absCoords();
+	        var oldLeft = oldPoint.left;
 	        _setPosition(oldPoint);
 	        var newPoint = args.absCoords();
+	        var newLeft = newPoint.left;
 	        //Если после показа координаты элемента изменились
 	        //в результате изменения размеров окна
-	        if (oldPoint.left != newPoint.left) {
+	        if (oldLeft != newLeft) {
 	            _setPosition(newPoint);
 	        }
 	    }
@@ -38,16 +41,10 @@
 	        new JSUIException("Заданы не верные аргумента для показа выпадающего контента", this)
 	    }
     
-
-
-        
-
-		container.style.visibility = "visible";
+	    container.css({ visibility: "visible", overflow: "auto" });
 		window.bind("click", onWindowClick);
 		window.bind("resize", onWindowResize);
 	};
-
-	var self = this;
 
 	function _setPosition(point)
 	{
@@ -62,10 +59,10 @@
 	    //Высчитываем окончательную высоту и ширину контента с учетом рамок основного контейнера
 	    var contentWidth = self.Content.offsetWidth + (container.offsetWidth - container.clientWidth);
 	    var contentHeight = self.Content.offsetHeight + (container.offsetHeight - container.clientHeight);
+        //Запоминаем текущие характеристики
 	    var oldWidth = self.Content.offsetWidth;
 	    var oldHeight = self.Content.offsetHeight;
 	    var oldTop = point.top;
-	    self.Content.style.overflow = "hidden";
 
         //Учитываем настройка минимальной\максимольной высоты\ширины
         //Если установлена максимальная ширина и ширина контента ее превышает
@@ -99,12 +96,11 @@
         //Если правый угол вне видимости, выравниваем по видимому правому углу окна
 	    if (point.left + contentWidth > scrollX + windowWidth) { point.left -= point.left + contentWidth - (scrollX + windowWidth); }
 
-
 	    if (settings.verticalAlign == "bottom") {
 	        point.top += point.height;
 	    }
 	    else {
-	        point.top -= self.Content.offsetHeight + 1;
+	        point.top -= contentHeight + 1;//1 - что бы не заступать на top элемента
 	    }
 
         //Если видимая высота окна меншье высоту контента, уменьшаем высоту контента
@@ -114,14 +110,23 @@
         //Если нижний угол вне видимости, выравниваем его по нижнему углу окна
 	    if (point.top + contentHeight > scrollY + windowHeight) { point.top -= point.top + contentHeight - (scrollY + windowHeight); }
 
-	    if (contentHeight > windowHeight) {
-
+	    //Если контент был расширен и не попадает в указанные координаты
+        //Проверяем, можем ли мы сменить позицию выравнивания
+	    if (settings.verticalAlign == "bottom") {
+	        if (oldTop + point.height != point.top) {
+	            if (oldTop - contentHeight >= scrollY) {
+	                point.top = oldTop -( contentHeight + 1);
+	            }
+	        }
+	    }
+	    else if ( point.top == scrollY && point.top + contentHeight > oldTop){
+	        if (oldTop + point.height + contentHeight <= scrollY + windowHeight) {
+	            point.top = oldTop + point.height;
+	        }
 	    }
 
 	    //clear
-	    self.Content.style.overflow = "none";
-	    self.Content.style.width = oldWidth + "px";
-	    self.Content.style.height = oldHeight + "px";
+	    self.Content.css({ overflow: "none", width: oldWidth + "px", height: oldHeight + "px" });
 	    container.css({ top: point.top + "px", left: point.left + "px", width: contentWidth + "px", height : contentHeight + "px" });
     }
 

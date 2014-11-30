@@ -3,11 +3,12 @@
 	top:0px;
 	left:0px;
 	display:block;
+    border:1px solid;
 	visibility:hidden;
 	z-index : 1000;
 	overflow:auto;
 	box-sizing:border-box;
-	border:1px solid red;
+	border:1px solid;
 	background-color:white;
     overflow:auto;
 }

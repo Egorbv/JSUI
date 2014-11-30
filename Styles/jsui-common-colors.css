@@ -1,0 +1,20 @@
+﻿/*Цвет бордюров для рамок вокруг (заголовков вкладок, контейнера для вкладки, линия по заголовками вкладок)*/
+.jsui-tab-strip > ul > li, .jsui-tab-strip-content, .jsui-tab-strip-line, .jsui-tab-strip.jsui-mode2 .jsui-tab-strip-content,
+.jsui-tab-strip.jsui-mode4 .jsui-tab-strip-content, .jsui-drop-down-content {
+	border-color:lightgrey;
+}
+
+/*Фон для неактивного заголовка вкладки*/
+.jsui-tab-strip > ul > li {
+	background-color:#E2E2E2;
+}
+
+/*Фон активной вкладки, кнопки показа скрытых вкладок*/
+.jsui-tab-strip-list-button, .jsui-tab-strip > ul > li.jsui-selected {
+	background-color:white;
+}
+
+/*Цвет для фона - (контейнера для вкладок, точек в кнопке показа списка скрытых вкладок)*/
+.jsui-tab-strip.jsui-mode3 > ul, .jsui-tab-strip.jsui-mode4 > ul, .jsui-tab-strip-list-button > span {
+	background-color:#B5B5B5;	
+}

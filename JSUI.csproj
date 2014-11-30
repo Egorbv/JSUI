@@ -59,9 +59,10 @@
   <ItemGroup>
     <Content Include="Scripts\jsui-dropdown-content.js" />
     <Content Include="Scripts\jsui-prototype.js" />
-    <Content Include="Scripts\TabStrip.js" />
-    <Content Include="Styles\jsui-common.css" />
-    <Content Include="Styles\TabStrip.css" />
+    <Content Include="Scripts\jsui-tab-strip.js" />
+    <Content Include="Styles\jsui-common-colors.css" />
+    <Content Include="Styles\jsui-dropdown-content.css" />
+    <Content Include="Styles\jsui-tab-strip.css" />
     <Content Include="Test.html" />
     <Content Include="Web.config" />
   </ItemGroup>

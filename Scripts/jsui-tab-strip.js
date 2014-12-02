@@ -27,7 +27,7 @@ function TabStrip(settings) {
 
 
 
-	var tabContent = jsui.CreateElement("span");
+	var tabContent = document.createElement("span");
 	tabContent.className = "jsui-tab-strip-content";
 
 	if (settings.mode == "jsui-mode1" || settings.mode == "jsui-mode3") {

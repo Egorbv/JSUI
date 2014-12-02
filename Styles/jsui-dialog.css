@@ -1,0 +1,95 @@
+﻿.jsui-dialog {
+	position:fixed;
+	box-sizing:border-box;
+	border:1px solid lightgrey;
+	background-color:white;
+	overflow:hidden;
+}
+
+.jsui-dialog-header {
+	background-color : #B5B5B5;
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	top:0px;
+	box-sizing:border-box;
+	display:table;
+	padding-left:10px;
+	font-size:50px;
+}
+
+.jsui-dialog-content {
+	position:absolute;
+	top:25px;
+	bottom:25px;
+	overflow:auto;
+}
+
+
+.jsui-dialog-footer {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	height:25px;
+	box-sizing:border-box;
+	background-color : gray;
+}
+
+
+
+.move-object-start *{
+	cursor:default !important;
+	-moz-user-select: none;
+	-ms-user-select:none;
+	-khtml-user-select: none;
+	user-select: none; 
+	-webkit-user-select:none;
+}
+
+
+
+
+.jsui-dialog-header-buttons {
+	display:table-cell;
+	right:0px;
+	top:0px;
+	height:100%;
+	width:1px;
+	background-color:inherit;
+	vertical-align:middle;
+}
+
+.jsui-dialog-icon-button {
+	height:16px;
+	width:16px;
+	padding:3px;
+	display:inline-block;
+	background-color:inherit;
+}
+
+.jsui-dialog-icon-button:hover {
+	border-radius:50%;
+	opacity:1;
+	background-color:lightgray;
+}
+
+.jsui-icon {
+	width:16px;
+	height:16px;
+	display:inline-block;
+	background-image:url(/sprite.png);
+	opacity:0.8;
+}
+.jsui-dialog-icon-button:hover .jsui-icon {
+	opacity:1 ;
+}
+
+
+
+
+.jsui-dialog-i-maximize {
+	background-position: -48px -144px;
+}
+

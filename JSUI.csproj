@@ -57,10 +57,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\jsui-dialog.js" />
     <Content Include="Scripts\jsui-dropdown-content.js" />
     <Content Include="Scripts\jsui-prototype.js" />
     <Content Include="Scripts\jsui-tab-strip.js" />
     <Content Include="Styles\jsui-common-colors.css" />
+    <Content Include="Styles\jsui-dialog.css" />
     <Content Include="Styles\jsui-dropdown-content.css" />
     <Content Include="Styles\jsui-tab-strip.css" />
     <Content Include="Test.html" />

@@ -5,10 +5,12 @@
     <script type="text/javascript" src="Scripts/jsui-tab-strip.js"></script>
 	<script type="text/javascript" src="Scripts/jsui-prototype.js"></script>
 	<script type="text/javascript" src="Scripts/jsui-dropdown-content.js"></script>
+	<script type="text/javascript" src="Scripts/jsui-dialog.js"></script>
 
     <link href="Styles/jsui-tab-strip.css" rel="stylesheet" type="text/css">
     <link href="Styles/jsui-dropdown-content.css" rel="stylesheet" type="text/css">
     <link href="Styles/jsui-common-colors.css" rel="stylesheet" type="text/css">
+    <link href="Styles/jsui-dialog.css" rel="stylesheet" type="text/css">
 	<style>
 		.jsui-absolute {
 			position: absolute;
@@ -117,8 +119,20 @@
 
 	function JSUI() {
 
-		this.CreateElement = function (name) {
-			return document.createElement(name);
+		this.event = function (e) {
+			debugger;
+			if (e) {
+				return e;
+			}
+			if (window.event) {
+				return window.event;
+			}
+			else {
+				return event;
+			}
+		}
+
+		this.ShowDialog = function (setting) {
 		}
 	}
 
@@ -133,7 +147,8 @@
 
 
 
-
+	var dialog = new Dialog({ title: "Title", width: 200, height: 200 });
+	dialog.Show();
 
 
 	var www1 = new TabStrip({ target: document.getElementsByClassName("jsui-tab-strip")[0], contentMode: "container", mode : "jsui-mode3"});

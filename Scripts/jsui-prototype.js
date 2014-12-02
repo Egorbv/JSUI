@@ -113,6 +113,10 @@ HTMLElement.prototype.absCoords = function () {
 	return { left: left, top: top };
 }
 
+HTMLElement.prototype.html = function (html) {
+	this.innerHTML = html;
+}
+
 
 
 Window.prototype.scrollPosX = function () {

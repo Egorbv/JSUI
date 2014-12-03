@@ -45,7 +45,10 @@ HTMLElement.prototype.append = function (obj) {
 }
 
 HTMLElement.prototype.find = function (tagName) {
-	if (this.childNodes) {
+    if (tagName.charAt(0) == '.') {
+        return this.getElementsByClassName(tagName.substr(1));
+    }
+    if (this.childNodes) {
 		var result = new Array();
 		for (var i = 0; i < this.childNodes.length; i++) {
 			if (this.childNodes[i].nodeName == tagName) {
@@ -69,6 +72,7 @@ HTMLElement.prototype.addClass = function (className) {
 		}
 	}
 	this.className += " " + className;
+	return this;
 }
 
 HTMLElement.prototype.removeClass = function (className) {
@@ -83,6 +87,7 @@ HTMLElement.prototype.removeClass = function (className) {
 		}
 	}
 	this.className = newClassNames;
+	return this;
 }
 
 HTMLElement.prototype.bind = function (ev, func) {
@@ -157,6 +162,7 @@ Text.prototype.remove = function (params) {
 
 
 
+
 Array.prototype.bind = function (ev, func) {
 	for (var i = 0; i < this.length; i++) {
 		this[i].bind(ev, func);
@@ -184,3 +190,5 @@ Array.prototype.remove = function () {
 Array.prototype.toList = function(){
 	return this;
 }
+
+HTMLCollection.prototype.bind = Array.prototype.bind;

@@ -9,14 +9,16 @@
 .jsui-dialog-header {
 	background-color : #B5B5B5;
 	position:absolute;
-	bottom:0px;
 	left:0px;
 	width:100%;
 	top:0px;
 	box-sizing:border-box;
-	display:table;
 	padding-left:10px;
 	font-size:50px;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    cursor:default;
 }
 
 .jsui-dialog-content {
@@ -52,26 +54,23 @@
 
 
 .jsui-dialog-header-buttons {
-	display:table-cell;
+    position:absolute;
+	display:block;
 	right:0px;
 	top:0px;
-	height:100%;
-	width:1px;
-	background-color:inherit;
-	vertical-align:middle;
+    font-size:0px;
+    background-color:inherit;
 }
 
-.jsui-dialog-icon-button {
-	height:16px;
-	width:16px;
-	padding:3px;
-	display:inline-block;
+.jsui-di-button {
+    display:inline-block;
+    padding:2px;
+    padding-right:0px;
+    padding-left:0px;
 	background-color:inherit;
 }
 
-.jsui-dialog-icon-button:hover {
-	border-radius:50%;
-	opacity:1;
+.jsui-di-button:hover {
 	background-color:lightgray;
 }
 
@@ -82,14 +81,24 @@
 	background-image:url(/sprite.png);
 	opacity:0.8;
 }
-.jsui-dialog-icon-button:hover .jsui-icon {
+.jsui-di-button:hover .jsui-icon {
 	opacity:1 ;
 }
 
 
 
 
-.jsui-dialog-i-maximize {
+.jsui-di-max {
 	background-position: -48px -144px;
 }
 
+.jsui-di-close{
+    background-position:-48px -16px;
+}
+
+.jsui-di-min{
+    background-position:-80px -288px;
+}
+.jsui-di-restore{
+    background-position:-48px -128px;
+}

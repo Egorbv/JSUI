@@ -61,6 +61,7 @@
     <Content Include="Scripts\jsui-dropdown-content.js" />
     <Content Include="Scripts\jsui-prototype.js" />
     <Content Include="Scripts\jsui-tab-strip.js" />
+    <Content Include="Scripts\jsui.js" />
     <Content Include="Styles\jsui-common-colors.css" />
     <Content Include="Styles\jsui-dialog.css" />
     <Content Include="Styles\jsui-dropdown-content.css" />

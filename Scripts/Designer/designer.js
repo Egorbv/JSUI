@@ -6,10 +6,9 @@
 	var controlID = 0;
 	this.ToolbarControls = new Array();
 
-	_init();
 
 	//метод инициализации редактора
-	function _init() {
+	this.Init = function() {
 		content = document.getElementById("DesignerContent");
 		if (content == null) {
 			new JSUIException("Не найдена область редактирования", this);
@@ -41,7 +40,6 @@
 	}
 
 	function _dragEnd(ev) {
-		debugger;
 		if (ev.dataTransfer.dropEffect == "copy") {
 			var range = window.getSelection()
 			if (range.type != "Caret") {
@@ -71,3 +69,4 @@
 		}
 	}
 }
+var designer = new Designer();

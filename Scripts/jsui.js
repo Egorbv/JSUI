@@ -31,3 +31,18 @@
         }
     }
 })();
+
+//заменяет все вхождения строки
+String.prototype.replaceAll = function (s1, s2) {
+	return this.replace(new RegExp(s1, 'g'), s2);
+}
+
+//возвращает ширину верхнего и нижнего бордюра
+HTMLElement.prototype.verticalBordersWidth = function () {
+	return parseInt(this.css("border-Top-Width")) + parseInt(this.css("border-Bottom-Width"));
+}
+
+//возвращает ширину левого и правого бордюра
+HTMLElement.prototype.horizontalBordersWidth = function () {
+	return parseInt(this.css("border-Left-Width")) + parseInt(this.css("border-Right-Width"));
+}

@@ -1,9 +1,13 @@
 ﻿function Dialog(settings) {
-	var container = null;
+	var modalContainer, header, content, footer, sysBtnClose, sysBtnMin, sysBtnMax, container = null
 	var self = this;
 
 	if (settings.title == undefined) {
 		settings.title = "";
+	}
+	//если показ системных кнопок не задан, то показываем их все
+	if (settings.showClose == undefined && settings.showMax == undefined && settings.showMin == undefined) {
+		settings.showClose = settings.showMax = settings.showMin = true;
 	}
 
 	var btn = "<span class='jsui-di-button'><span class='jsui-icon ";
@@ -15,26 +19,18 @@
 			var html = "";
 
 
+			if (settings.isModal = true) {
+			}
 
 
 
 			html += "<div class='jsui-dialog-content'></div><div class='jsui-dialog-footer'></div>";
-
-
-			html += "<div class='jsui-dialog-header'>" + settings.title;
-			html += "<span class='jsui-dialog-header-buttons'>";
-			html += btn + "jsui-di-min'></span></span>";
-			html += btn + "jsui-di-max'></span></span>";
-			html += btn + "jsui-di-close'></span></span>";
-			html += "</span></div>"
+			html += _generateHeader();
 			container.html(html);
 
-
-
-
-			this.Header = container.getElementsByClassName("jsui-dialog-header")[0];
-			this.Content = container.getElementsByClassName("jsui-dialog-content")[0];
-			this.Footer = container.getElementsByClassName("jsui-dialog-footer")[0];
+			header = container.getElementsByClassName("jsui-dialog-header")[0];
+			content = container.getElementsByClassName("jsui-dialog-content")[0];
+			footer = container.getElementsByClassName("jsui-dialog-footer")[0];
 
 			var left = document.documentElement.clientWidth/2 - settings.width/2;
 			var top = document.documentElement.clientHeight/2 - settings.height/2;
@@ -43,67 +39,112 @@
 
 			document.body.append(container);
 
-			this.Header.bind("mousedown", _onMouseDown);
+			header.bind("mousedown", _onMouseDown);
 
-            //переделать
-			var ss = container.find(".jsui-di-button");
-			container.find(".jsui-di-button").bind("click", function (ev) {
-			    var icon = this.find(".jsui-icon");
-			    if (icon.length == 1) {
-			        var cl = icon[0].className.replace("jsui-icon ","");
-			        switch (cl) {
-			            case "jsui-di-close":
-			                self.Hide(ev);
-			                break;
-			            case "jsui-di-min":
-			                self.Minimaze(ev);
-			                icon[0].className = "jsui-icon jsui-di-restore";
-			                break;
-			            case "jsui-di-restore":
-			                self.Restore(ev, icon[0]);
-			                break;
-			            case "jsui-di-max":
-			                self.Maximaze(ev);
-			                icon[0].className = "jsui-icon jsui-di-restore";
-			                break;
-			        }
-			    }
-			})
+			_initHeaderButtons();
 		}
 
 
-		function _onMouseDown(ev) {
-		    jsui.helpers.moveObject(container, ev);
-		}
 	}
 
-	function _saveSettings(oldClass) {
+	//обработчик нажатия мыши на заголовке диалога
+	function _onMouseDown(ev) {
+		jsui.helpers.moveObject(container, ev);
+	}
+
+	//инициализация обработчиков системных кнопок в заголовке диалога
+	function _initHeaderButtons() {
+		var tmp = container.find(".jsui-di-min");
+		if (tmp.length == 1) {
+			sysBtnMin = tmp[0];
+			sysBtnMin.bind("click", self.Minimaze);
+		}
+
+		tmp = container.find(".jsui-di-max");
+		if (tmp.length == 1) {
+			sysBtnMax = tmp[0];
+			sysBtnMax.bind("click", self.Maximaze);
+		}
+
+		tmp = container.find(".jsui-di-close");
+		if (tmp.length == 1) {
+			sysBtnClose = tmp[0];
+			sysBtnClose.bind("click", self.Hide);
+		}
+		container.find(".jsui-di-button").bind("mousedown", function (ev) {
+			ev.stopPropagation();
+		});
+	}
+
+	//генерация заголовка виалога
+	function _generateHeader() {
+		var header = "<div class='jsui-dialog-header'>" + settings.title;
+		var buttons = "";
+		if (settings.showMin === true) {
+			buttons += btn + "jsui-di-min'></span></span>";
+		}
+		if (settings.showMax === true) {
+			buttons += btn + "jsui-di-max'></span></span>";
+		}
+		if (settings.showClose === true) {
+			buttons += btn + "jsui-di-close'></span></span>";
+		}
+		if (header.length > 0) {
+			buttons = "<span class='jsui-dialog-header-buttons'>" + buttons + "</span>";
+		}
+		return header + buttons + "</div>";
+	}
+
+
+	function _saveSettings() {
 	    var top = container.offsetTop;
 	    var left = container.offsetLeft;
 	    var width = container.offsetWidth;
 	    var height = container.offsetHeight;
 	    //save body overflow
-	    container.oldSettings = { left: left, top: top, width: width, height: height, oldClass : oldClass };
+	    container.oldSettings = { left: left, top: top, width: width, height: height};
 	}
 
 	this.Restore = function (ev, icon) {
-	    var st = container.oldSettings
-	    container.css({ left: st.left + "px", top: st.top + "px", width: st.width + "px", height: st.height + "px" });
-	    icon.className = "jsui-icon " + st.oldClass;
+		if (container.oldSettings) {
+			var st = container.oldSettings
+			container.css({ left: st.left + "px", top: st.top + "px", width: st.width + "px", height: st.height + "px" });
+			container.oldSettings = null;
+		}
 	}
 
 	this.Minimaze = function(){
-	    var tmp = container.getElementsByClassName("jsui-dialog-header")
-	    if (tmp.length == 1) {
-	        _saveSettings("jsui-di-min");
-	        container.style.height = tmp[0].offsetHeight + "px";
+		if (header && sysBtnMin) {
+			if (sysBtnMin.hasClass("jsui-di-min")) {
+				_saveSettings();
+				container.style.height = header.offsetHeight + container.verticalBordersWidth()+ "px";
+				sysBtnMin.className = "jsui-icon jsui-di-restore";
+				sysBtnMax.hide();
+			}
+			else {
+				sysBtnMin.className = "jsui-icon jsui-di-min";
+				sysBtnMax.show();
+				self.Restore();
+			}
 	    }
 	}
 
 	this.Maximaze = function () {
-	    _saveSettings("jsui-di-max");
-	    document.body.style.overflow = "hidden";
-	    container.css({ left: "0px", top: "0px", width:"100%", height: "100%" });
+		if (sysBtnMax.hasClass("jsui-di-max")) {
+			_saveSettings();
+			document.body.style.overflow = "hidden";
+			container.css({ left: "0px", top: "0px", width: "100%", height: "100%" });
+			sysBtnMax.className = "jsui-icon jsui-di-restore";
+			debugger;
+			sysBtnMin.hide();
+		
+		}
+		else {
+			document.body.style.overflow = "auto";
+			sysBtnMax.className = "jsui-icon jsui-di-max";
+			sysBtnMin.show();
+			self.Restore();
+		}
 	}
 
 	this.Hide = function () {

@@ -1,17 +1,39 @@
 ﻿HTMLElement.prototype.css = function (params) {
-	for (var k in params) {
-		this.style[k.replace("-", "")] = params[k];
+	if (typeof params == "object") {
+		for (var k in params) {
+			this.style[k.replaceAll("-", "")] = params[k];
+		}
+	}
+	else {
+		params = params.replaceAll("-", "");
+		if (window.getComputedStyle) {
+			return window.getComputedStyle(this)[params];
+		}
+		else {
+			this.currentStyle[params];
+		}
 	}
 }
 
 HTMLElement.prototype.hide = function () {
+	if (this.beforeStyles == undefined) {
+		this.beforeStyles = {};
+	}
+	this.beforeStyles.display = this.css("display");
 	this.style.visibility = "hidden";
 	this.style.display = "none";
+	return this;
 }
 
 HTMLElement.prototype.show = function () {
+	if (this.beforeStyles != undefined && this.beforeStyles.display) {
+		this.style.display = this.beforeStyles.display;
+	}
+	else {
+		this.style.display = "block";
+	}
 	this.style.visibility = "visible";
-	this.style.display = "block";
+	return this;
 }
 
 HTMLElement.prototype.dataParams = function () {
@@ -173,6 +195,14 @@ HTMLElement.prototype.attr = function (attr, value) {
 		}
 	}
 	return this;
+}
+
+HTMLElement.prototype.hasClass = function( selector ) {
+	var className = " " + selector + " ";
+	if ( this.nodeType === 1 && (" " + this.className + " ").indexOf( selector ) >= 0 ) {
+		return true;
+	}
+	return false;
 }
 
 

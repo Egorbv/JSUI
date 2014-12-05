@@ -1,7 +1,15 @@
-﻿(function () {
+﻿(function (jQuery) {
     window.jsui = new Object();
     var jsui = window.jsui;
     jsui.helpers = {};
+
+    if (jQuery) {
+    	window.jsui.CreateElement = function (name) {
+    		return $(document.createElement(name));
+    	}
+    } else {
+    	window.jsui	.CreateElement = document.createElement;
+    }
 
     //перемещает объект с абсолютными координатами по экрану вслед за машью
     //после события мыши 'mouseUp' перемещение заканчивается
@@ -30,7 +38,8 @@
             window.unbind("mouseup", _onmouseUp);
         }
     }
-})();
+})(window.jQuery);
+
 
 //заменяет все вхождения строки
 String.prototype.replaceAll = function (s1, s2) {

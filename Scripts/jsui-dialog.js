@@ -14,8 +14,8 @@
 
 	this.Show = function () {
 		if (container == null) {
-			container = document.createElement("div");
-			container.className = "jsui-dialog";
+			container = jsui.CreateElement("div");
+			container.addClass("jsui-dialog");
 			var html = "";
 
 
@@ -23,25 +23,25 @@
 			}
 
 
-
 			html += "<div class='jsui-dialog-content'></div><div class='jsui-dialog-footer'></div>";
-			html += _generateHeader();
 			container.html(html);
+			container.append(_generateHeader());
 
-			header = container.getElementsByClassName("jsui-dialog-header")[0];
-			content = container.getElementsByClassName("jsui-dialog-content")[0];
-			footer = container.getElementsByClassName("jsui-dialog-footer")[0];
+			debugger;	
+			header = container.find(".jsui-dialog-header")[0];
+			content = container.find("jsui-dialog-content")[0];
+			footer = container.find("jsui-dialog-footer")[0];
 
 			var left = document.documentElement.clientWidth/2 - settings.width/2;
 			var top = document.documentElement.clientHeight/2 - settings.height/2;
 
 			container.css({ width: settings.width + "px", height: settings.height + "px", left : left + "px", top : top + "px" });
 
-			document.body.append(container);
+			container.appendTo(document.body);
 
 			header.bind("mousedown", _onMouseDown);
 
-			_initHeaderButtons();
+			//_initHeaderButtons();
 		}
 
 
@@ -52,47 +52,50 @@
 		jsui.helpers.moveObject(container, ev);
 	}
 
-	//инициализация обработчиков системных кнопок в заголовке диалога
-	function _initHeaderButtons() {
-		var tmp = container.find(".jsui-di-min");
-		if (tmp.length == 1) {
-			sysBtnMin = tmp[0];
-			sysBtnMin.bind("click", self.Minimaze);
-		}
-
-		tmp = container.find(".jsui-di-max");
-		if (tmp.length == 1) {
-			sysBtnMax = tmp[0];
-			sysBtnMax.bind("click", self.Maximaze);
-		}
-
-		tmp = container.find(".jsui-di-close");
-		if (tmp.length == 1) {
-			sysBtnClose = tmp[0];
-			sysBtnClose.bind("click", self.Hide);
-		}
-		container.find(".jsui-di-button").bind("mousedown", function (ev) {
-			ev.stopPropagation();
-		});
+	//создание кнопки для заголовка
+	function _createHeaderButton(className, clickFunction, area) {
+		var btn = jsui.CreateElement("span");
+		btn.onclick = clickFunction;
+		btn.className = "jsui-di-button";
+		var cBtn = jsui.CreateElement("span");
+		cBtn.className = "jsui-icon " + className;
+		btn.append(cBtn);
+		area.append(btn);
+		return cBtn;
 	}
 
 	//генерация заголовка виалога
 	function _generateHeader() {
-		var header = "<div class='jsui-dialog-header'>" + settings.title;
-		var buttons = "";
-		if (settings.showMin === true) {
-			buttons += btn + "jsui-di-min'></span></span>";
+		var header = jsui.CreateElement("div");
+		header.addClass("jsui-dialog-header");
+		header.innerText = settings.title;
+
+		if (settings.customHeaderButtons) {
+			if (!(settings.customHeaderButtons instanceof Array)) {
+				settings.customHeaderButtons = new Array(settings.customHeaderButtons);
+			}
 		}
-		if (settings.showMax === true) {
-			buttons += btn + "jsui-di-max'></span></span>";
+
+		if (settings.showClose || settings.showMax || settings.showMin || settings.customHeaderButtons) {
+			var btnArea = jsui.CreateElement("span").attr("class", "jsui-dialog-header-buttons");
+			if (settings.customHeaderButtons) {
+				var btns = settings.customHeaderButtons;
+				for(var i=0; i < btns.length; i++){
+					var btn = _createHeaderButton(btns[i].css, btns[i].callback, btnArea);
+				}
+			}
+
+			sysBtnMin = !settings.showMin || _createHeaderButton("jsui-di-min", self.Minimaze, btnArea);
+			sysBtnMax = !settings.showMax || _createHeaderButton("jsui-di-max", self.Maximaze, btnArea);
+			sysBtnClose = !settings.showClose || _createHeaderButton("jsui-di-close", self.Hide, btnArea);
+			header.append(btnArea);
 		}
-		if (settings.showClose === true) {
-			buttons += btn + "jsui-di-close'></span></span>";
-		}
-		if (header.length > 0) {
-			buttons = "<span class='jsui-dialog-header-buttons'>" + buttons + "</span>";
-		}
-		return header + buttons + "</div>";
+
+		header.find(".jsui-di-button").bind("mousedown", function (ev) {
+			ev.stopPropagation();
+		});
+
+		return header;
 	}
 
 
@@ -101,7 +104,6 @@
 	    var left = container.offsetLeft;
 	    var width = container.offsetWidth;
 	    var height = container.offsetHeight;
-	    //save body overflow
 	    container.oldSettings = { left: left, top: top, width: width, height: height};
 	}
 
@@ -135,7 +137,6 @@
 			document.body.style.overflow = "hidden";
 			container.css({ left: "0px", top: "0px", width: "100%", height: "100%" });
 			sysBtnMax.className = "jsui-icon jsui-di-restore";
-			debugger;
 			sysBtnMin.hide();
 		
 		}
@@ -148,7 +149,16 @@
 	}
 
 	this.Hide = function () {
-	    container.hide();
+		var result = true;
+		if (typeof settings.closeCallback == "function") {
+			result = settings.closeCallback(self);
+			if (result == undefined) {
+				result = true;
+			}
+		}
+		if (result) {
+			container.hide();
+		}
 	}
 }
 

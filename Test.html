@@ -2,9 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+	<script type="text/javascript" src="Scripts/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="Scripts/jsui.js"></script>
     <script type="text/javascript" src="Scripts/jsui-tab-strip.js"></script>
-	<script type="text/javascript" src="Scripts/jsui-prototype.js"></script>
+	<script type="text/javascript" src="Scripts/jsui-prototype.js1"></script>
+
+
 	<script type="text/javascript" src="Scripts/jsui-dropdown-content.js"></script>
 	<script type="text/javascript" src="Scripts/jsui-dialog.js"></script>
 
@@ -115,11 +118,11 @@
 <script>
 
 
-	var dialog = new Dialog({ title: "Title 1234567890 dfdfdfdfdfd", width: 200, height: 200});
+	var dialog = new Dialog({ title: "Title 1234567890 dfdfdfdfdfd", width: 200, height: 200, customHeaderButtons:   {css: "jsui-di-max", callback: function () { alert(5); }} });
 	dialog.Show();
 
 
-	var www1 = new TabStrip({ target: document.getElementsByClassName("jsui-tab-strip")[0], contentMode: "container", mode : "jsui-mode3"});
+	//var www1 = new TabStrip({ target: document.getElementsByClassName("jsui-tab-strip")[0], contentMode: "container", mode : "jsui-mode3"});
 
 	function test() {
 	}

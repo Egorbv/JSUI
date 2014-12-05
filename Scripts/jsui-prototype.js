@@ -64,6 +64,7 @@ HTMLElement.prototype.append = function (obj) {
 	for (var i = 0; i < elements.length; i++) {
 		this.appendChild(elements[i]);
 	}
+	return this;
 }
 
 HTMLElement.prototype.find = function (tagName) {
@@ -203,6 +204,14 @@ HTMLElement.prototype.hasClass = function( selector ) {
 		return true;
 	}
 	return false;
+}
+
+HTMLElement.prototype.appendTo = function (node) {
+	if (this.parentNode != null) {
+		this.parentNode.removeChild(this);
+	}
+	node.appendChild(this);
+	return this;
 }
 
 

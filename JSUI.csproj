@@ -57,6 +57,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Editor.html" />
+    <Content Include="Scripts\Designer\checkbox.js" />
+    <Content Include="Scripts\Designer\combobox.js" />
+    <Content Include="Scripts\Designer\designer.js" />
+    <Content Include="Scripts\Designer\table.js" />
+    <Content Include="Scripts\Designer\textbox.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jsui-dialog.js" />
     <Content Include="Scripts\jsui-dropdown-content.js" />
     <Content Include="Scripts\jsui-prototype.js" />

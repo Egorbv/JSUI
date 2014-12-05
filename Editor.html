@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<script type="text/javascript" src="Scripts/jsui-prototype.js"></script>
+	<script type="text/javascript" src="Scripts/Designer/designer.js"></script>
+	<script type="text/javascript" src="Scripts/Designer/textbox.js"></script>
+	<script type="text/javascript" src="Scripts/Designer/combobox.js"></script>
+	<script type="text/javascript" src="Scripts/Designer/checkbox.js"></script>
+	<script type="text/javascript" src="Scripts/Designer/table.js"></script>
+    <title></title>
+	<Style>
+		/*Класс для елементов служащих контралами для редактора*/
+		.content *[role=designer-control] {
+			cursor:default;
+		}
+		.controls {
+			position:absolute;
+			left:0px;
+			top:0px;
+			bottom:0px;
+			width:300px;
+			background-color:lightgray;
+		}
+		.content {
+			position:absolute;
+			left:300px;
+			top:0px;
+			bottom:0px;
+			right:0px;
+		}
+		.toolbox-item {
+			cursor:default;
+			padding:5px;
+			border:1px solid gray;
+		}
+		.jsui-dragable-element {
+			position:absolute;
+			opacity:0.5;
+			background-color:green;
+		}
+
+.move-object-start *{
+	cursor:default !important;
+	-moz-user-select: none;
+	-ms-user-select:none;
+	-khtml-user-select: none;
+	user-select: none; 
+	-webkit-user-select:none;
+}
+
+	</Style>
+</head>
+<body>
+
+<div id="DesignerToolbar" class="controls">
+	<div data-params="type:TextBox" class="toolbox-item">Textbox</div>
+	<div data-params="type:ComboBox" class="toolbox-item">Combobox</div>
+	<div data-params="type:CheckBox" class="toolbox-item">Checkbox</div>
+	<div data-params="type:Table" class="toolbox-item">Table</div>
+</div>
+
+
+<div id="DesignerContent" class="content" contenteditable="true">
+</div>
+
+<script>
+	var designer = new Designer();
+
+</script>
+</body>
+</html>
